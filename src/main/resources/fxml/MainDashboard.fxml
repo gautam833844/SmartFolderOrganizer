@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="mainBorderPane"
+            xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.MainDashboardController"
+            stylesheets="@../css/Dashboard.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: MenuBar and Action ToolBar -->
+    <top>
+        <VBox>
+            <MenuBar styleClass="menu-bar">
+                <menus>
+                    <Menu text="File">
+                        <items>
+                            <MenuItem text="Open Folder..."/>
+                            <MenuItem text="Save Settings"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Exit"/>
+                        </items>
+                    </Menu>
+                    <Menu text="Edit">
+                        <items>
+                            <MenuItem text="Select All"/>
+                            <MenuItem text="Deselect All"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Preferences"/>
+                        </items>
+                    </Menu>
+                    <Menu text="Tools">
+                        <items>
+                            <MenuItem text="Scan Folder"/>
+                            <MenuItem text="Find Duplicates"/>
+                            <MenuItem text="Folder Watcher"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="Undo Last Operation"/>
+                        </items>
+                    </Menu>
+                    <Menu text="View">
+                        <items>
+                            <MenuItem text="Dashboard"/>
+                            <MenuItem text="Organization Preview"/>
+                            <MenuItem text="Audit History"/>
+                            <MenuItem text="Reports"/>
+                        </items>
+                    </Menu>
+                    <Menu text="Help">
+                        <items>
+                            <MenuItem text="Documentation"/>
+                            <MenuItem text="Check for Updates"/>
+                            <SeparatorMenuItem/>
+                            <MenuItem text="About"/>
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+
+            <ToolBar styleClass="top-toolbar">
+                <Button fx:id="scanFolderBtn" text="Scan Folder" styleClass="action-button-primary"/>
+                <Button fx:id="previewBtn" text="Preview" styleClass="action-button"/>
+                <Button fx:id="organizeBtn" text="Organize" styleClass="action-button"/>
+                <Button fx:id="undoBtn" text="Undo" styleClass="action-button"/>
+                <Button fx:id="duplicatesBtn" text="Duplicates" styleClass="action-button"/>
+                <Button fx:id="reportsBtn" text="Reports" styleClass="action-button"/>
+                <Button fx:id="historyBtn" text="History" styleClass="action-button"/>
+                <Button fx:id="settingsBtn" text="Settings" styleClass="action-button"/>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <!-- Left Region: Navigation Sidebar -->
+    <left>
+        <VBox styleClass="navigation-sidebar">
+            <Button fx:id="navDashboardBtn" text="Dashboard" styleClass="nav-button-active" maxWidth="Infinity"/>
+            <Button fx:id="navScannerBtn" text="Scanner" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button fx:id="navPreviewBtn" text="Preview" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button fx:id="navDuplicatesBtn" text="Duplicates" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button fx:id="navHistoryBtn" text="History" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button fx:id="navReportsBtn" text="Reports" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button fx:id="navSettingsBtn" text="Settings" styleClass="nav-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Header Welcome Banner & Statistics Cards -->
+    <center>
+        <VBox styleClass="center-container" spacing="24.0">
+            <!-- Welcome Header Card -->
+            <VBox styleClass="welcome-header-pane" spacing="8.0">
+                <Label text="Welcome to Smart Folder Organizer" styleClass="header-title"/>
+                <Label text="Select a folder to begin organizing your files." styleClass="header-subtitle"/>
+            </VBox>
+
+            <!-- 4 Statistic Cards Grid -->
+            <GridPane styleClass="stats-grid" hgap="18.0" vgap="18.0">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50.0"/>
+                    <ColumnConstraints percentWidth="50.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints prefHeight="110.0"/>
+                    <RowConstraints prefHeight="110.0"/>
+                </rowConstraints>
+
+                <!-- Card 1: Files Scanned -->
+                <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="0" spacing="6.0">
+                    <Label text="FILES SCANNED" styleClass="stat-card-title"/>
+                    <Label fx:id="filesScannedValueLabel" text="0" styleClass="stat-card-value"/>
+                </VBox>
+
+                <!-- Card 2: Duplicates -->
+                <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="0" spacing="6.0">
+                    <Label text="DUPLICATES FOUND" styleClass="stat-card-title"/>
+                    <Label fx:id="duplicatesValueLabel" text="0" styleClass="stat-card-value"/>
+                </VBox>
+
+                <!-- Card 3: Space Saved -->
+                <VBox styleClass="stat-card" GridPane.columnIndex="0" GridPane.rowIndex="1" spacing="6.0">
+                    <Label text="ESTIMATED SPACE SAVED" styleClass="stat-card-title"/>
+                    <Label fx:id="spaceSavedValueLabel" text="0 B" styleClass="stat-card-value"/>
+                </VBox>
+
+                <!-- Card 4: Transactions -->
+                <VBox styleClass="stat-card" GridPane.columnIndex="1" GridPane.rowIndex="1" spacing="6.0">
+                    <Label text="TRANSACTIONS COMPLETED" styleClass="stat-card-title"/>
+                    <Label fx:id="transactionsValueLabel" text="0" styleClass="stat-card-value"/>
+                </VBox>
+            </GridPane>
+        </VBox>
+    </center>
+
+    <!-- Right Region: Recent Activity Sidebar Panel -->
+    <right>
+        <VBox styleClass="right-panel">
+            <Label text="Recent Activity" styleClass="panel-section-title"/>
+            <ListView fx:id="recentActivityListView" styleClass="activity-list-view" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressBar fx:id="progressBar" progress="0.0" styleClass="status-progress-bar"/>
+            <Label fx:id="versionLabel" text="v1.0.0" styleClass="version-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

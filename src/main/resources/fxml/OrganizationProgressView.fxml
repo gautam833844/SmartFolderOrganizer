@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.OrganizationProgressController"
+            stylesheets="@../css/OrganizationProgress.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header and Stats Cards Bar -->
+    <top>
+        <VBox styleClass="header-pane">
+            <VBox spacing="4.0">
+                <Label text="Organizing Files" styleClass="header-title"/>
+                <Label text="Your files are being organized safely." styleClass="header-subtitle"/>
+            </VBox>
+
+            <HBox styleClass="stats-bar">
+                <!-- Card 1: Files Processed -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="FILES PROCESSED" styleClass="stat-card-small-title"/>
+                    <Label fx:id="filesProcessedValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 2: Remaining Files -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="REMAINING FILES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="remainingFilesValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 3: Successful Moves -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="SUCCESSFUL MOVES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="successfulMovesValueLabel" text="0" styleClass="stat-card-small-value" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <!-- Card 4: Failed Moves -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="FAILED MOVES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="failedMovesValueLabel" text="0" styleClass="stat-card-small-value" style="-fx-text-fill: #ef4444;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Region: Large Progress Card & Live Activity TableView -->
+    <center>
+        <VBox styleClass="center-container">
+            <!-- Large Progress Information Card -->
+            <VBox styleClass="progress-card">
+                <HBox alignment="CENTER_LEFT" spacing="16.0">
+                    <ProgressBar fx:id="mainProgressBar" progress="0.58" styleClass="main-progress-bar" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                    <Label fx:id="percentageLabel" text="58%" styleClass="percentage-label"/>
+                </HBox>
+
+                <VBox spacing="4.0">
+                    <Label text="CURRENT FILE" styleClass="path-key"/>
+                    <Label fx:id="currentFileLabel" text="vacation_photo_2026.jpg" styleClass="current-file-label"/>
+                </VBox>
+
+                <HBox spacing="24.0">
+                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                        <Label text="SOURCE PATH" styleClass="path-key"/>
+                        <Label fx:id="currentSourcePathLabel" text="-" styleClass="path-val" wrapText="true"/>
+                    </VBox>
+
+                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                        <Label text="DESTINATION PATH" styleClass="path-key"/>
+                        <Label fx:id="currentDestinationPathLabel" text="-" styleClass="path-val" wrapText="true"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Metrics Row -->
+                <HBox spacing="16.0">
+                    <VBox styleClass="time-metric-box" HBox.hgrow="ALWAYS">
+                        <Label text="ESTIMATED REMAINING" styleClass="time-metric-key"/>
+                        <Label fx:id="timeRemainingLabel" text="12 seconds" styleClass="time-metric-val"/>
+                    </VBox>
+
+                    <VBox styleClass="time-metric-box" HBox.hgrow="ALWAYS">
+                        <Label text="ELAPSED TIME" styleClass="time-metric-key"/>
+                        <Label fx:id="elapsedTimeLabel" text="15 seconds" styleClass="time-metric-val"/>
+                    </VBox>
+
+                    <VBox styleClass="time-metric-box" HBox.hgrow="ALWAYS">
+                        <Label text="TRANSFER SPEED" styleClass="time-metric-key"/>
+                        <Label fx:id="transferSpeedLabel" text="45.2 MB/s" styleClass="time-metric-val"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Center Bottom: Live Activity TableView -->
+            <VBox VBox.vgrow="ALWAYS">
+                <TableView fx:id="liveActivityTableView" styleClass="activity-table-view" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="timeColumn" text="Time" prefWidth="100.0"/>
+                        <TableColumn fx:id="operationColumn" text="Operation" prefWidth="100.0"/>
+                        <TableColumn fx:id="fileColumn" text="File" prefWidth="240.0"/>
+                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="110.0"/>
+                        <TableColumn fx:id="messageColumn" text="Message" prefWidth="380.0"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Right Region: Operation Summary & Recent Operations Sidebar Panel -->
+    <right>
+        <VBox styleClass="right-panel">
+            <Label text="Operation Summary" styleClass="panel-title"/>
+
+            <GridPane hgap="10.0" vgap="10.0">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50.0"/>
+                    <ColumnConstraints percentWidth="50.0"/>
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints/>
+                    <RowConstraints/>
+                </rowConstraints>
+
+                <VBox styleClass="summary-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="COMPLETED" styleClass="summary-card-title"/>
+                    <Label fx:id="summaryCompletedLabel" text="83" styleClass="summary-card-value" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <VBox styleClass="summary-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="SKIPPED" styleClass="summary-card-title"/>
+                    <Label fx:id="summarySkippedLabel" text="0" styleClass="summary-card-value"/>
+                </VBox>
+
+                <VBox styleClass="summary-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="CONFLICTS" styleClass="summary-card-title"/>
+                    <Label fx:id="summaryConflictsLabel" text="1" styleClass="summary-card-value" style="-fx-text-fill: #f59e0b;"/>
+                </VBox>
+
+                <VBox styleClass="summary-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label text="ERRORS" styleClass="summary-card-title"/>
+                    <Label fx:id="summaryErrorsLabel" text="2" styleClass="summary-card-value" style="-fx-text-fill: #ef4444;"/>
+                </VBox>
+            </GridPane>
+
+            <VBox spacing="8.0" VBox.vgrow="ALWAYS">
+                <Label text="Recent Operations" styleClass="panel-title"/>
+                <ListView fx:id="recentOperationsListView" styleClass="recent-ops-list" VBox.vgrow="ALWAYS"/>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Action Bar & Status Bar -->
+    <bottom>
+        <HBox styleClass="action-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" text="Processing..." styleClass="status-text"/>
+            <Separator orientation="VERTICAL"/>
+            <Button fx:id="pauseBtn" text="Pause" onAction="#onPause" styleClass="btn-secondary"/>
+            <Button fx:id="resumeBtn" text="Resume" onAction="#onResume" styleClass="btn-secondary"/>
+            <Button fx:id="cancelBtn" text="Cancel" onAction="#onCancel" styleClass="btn-danger"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="viewReportBtn" text="View Report" onAction="#onViewReport" styleClass="btn-secondary"/>
+            <Button fx:id="openDestFolderBtn" text="Open Destination Folder" onAction="#onOpenDestinationFolder" styleClass="btn-secondary"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

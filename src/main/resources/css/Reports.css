@@ -1,0 +1,235 @@
+/* Modern Light Theme Design System for Reports & Analytics Workspace */
+
+.root {
+    /* Color Tokens */
+    -fx-bg-main: #f8fafc;
+    -fx-bg-surface: #ffffff;
+    -fx-bg-sidebar: #f1f5f9;
+    -fx-bg-card: #ffffff;
+    
+    -fx-text-primary: #0f172a;
+    -fx-text-secondary: #475569;
+    -fx-text-muted: #94a3b8;
+    
+    -fx-accent-primary: #3b82f6;
+    -fx-accent-hover: #2563eb;
+    -fx-accent-light: #eff6ff;
+    -fx-accent-success: #10b981;
+    -fx-accent-warning: #f59e0b;
+    -fx-accent-danger: #ef4444;
+    
+    -fx-border-color-subtle: #e2e8f0;
+    -fx-border-color-card: #cbd5e1;
+    
+    -fx-background-color: -fx-bg-main;
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* Header Container */
+.header-pane {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent -fx-border-color-subtle transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 20px 24px;
+    -fx-spacing: 16px;
+}
+
+.header-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.header-subtitle {
+    -fx-font-size: 13px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+/* Top Stats Cards Bar */
+.stats-bar {
+    -fx-spacing: 16px;
+}
+
+.stat-card-small {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-background-radius: 8px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 16px;
+    -fx-min-width: 150px;
+}
+
+.stat-card-small-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.stat-card-small-value {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-accent-primary;
+}
+
+/* Left Navigation Sidebar Panel */
+.nav-sidebar {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-border-color: transparent -fx-border-color-subtle transparent transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 16px 12px;
+    -fx-spacing: 6px;
+    -fx-pref-width: 220px;
+    -fx-min-width: 190px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: -fx-bg-surface;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.nav-button-active {
+    -fx-background-color: -fx-accent-primary;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 10px 14px;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+}
+
+/* Center Dashboard Charts Container */
+.center-container {
+    -fx-background-color: -fx-bg-main;
+    -fx-padding: 18px 24px;
+    -fx-spacing: 20px;
+}
+
+.chart-card {
+    -fx-background-color: -fx-bg-surface;
+    -fx-background-radius: 12px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 12px;
+    -fx-padding: 16px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.04), 8, 0, 0, 2);
+}
+
+.chart-title {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Custom Chart Styling */
+.chart-pie {
+    -fx-border-color: transparent;
+}
+
+.chart-bar {
+    -fx-bar-fill: -fx-accent-primary;
+}
+
+.chart-series-line {
+    -fx-stroke: -fx-accent-primary;
+    -fx-stroke-width: 3px;
+}
+
+.chart-line-symbol {
+    -fx-background-color: -fx-accent-primary, #ffffff;
+    -fx-background-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Right Summary Panel */
+.summary-panel {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent transparent -fx-border-color-subtle;
+    -fx-border-width: 1px;
+    -fx-padding: 20px 18px;
+    -fx-spacing: 14px;
+    -fx-pref-width: 280px;
+    -fx-min-width: 250px;
+}
+
+.panel-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.summary-item-card {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-background-radius: 8px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 12px;
+    -fx-spacing: 2px;
+}
+
+.summary-item-key {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-muted;
+}
+
+.summary-item-val {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* Bottom Export Toolbar */
+.export-toolbar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: -fx-border-color-subtle transparent transparent transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 20px;
+    -fx-spacing: 10px;
+}
+
+.btn-secondary {
+    -fx-background-color: -fx-bg-surface;
+    -fx-text-fill: -fx-text-primary;
+    -fx-border-color: -fx-border-color-card;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-secondary:hover {
+    -fx-background-color: -fx-bg-sidebar;
+}
+
+.btn-primary {
+    -fx-background-color: -fx-accent-primary;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: -fx-accent-primary;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 6px 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.btn-primary:hover {
+    -fx-background-color: -fx-accent-hover;
+}
+
+.status-label {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 12px;
+}

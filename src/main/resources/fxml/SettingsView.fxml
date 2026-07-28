@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.SettingsController"
+            stylesheets="@../css/Settings.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header -->
+    <top>
+        <VBox styleClass="header-pane">
+            <Label text="Settings &amp; Preferences" styleClass="header-title"/>
+            <Label text="Customize application behavior, default paths, and system rules." styleClass="header-subtitle"/>
+        </VBox>
+    </top>
+
+    <!-- Left Region: Settings Sections Navigation Sidebar -->
+    <left>
+        <VBox styleClass="nav-sidebar">
+            <Button text="General" styleClass="nav-button-active" maxWidth="Infinity"/>
+            <Button text="Scanning" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Organization" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Duplicate Detection" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Folder Watcher" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Reports" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Appearance" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Advanced" styleClass="nav-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Scrollable Settings Cards Panel -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox styleClass="center-container" spacing="20.0">
+                    
+                    <!-- Section 1: General -->
+                    <VBox styleClass="settings-card">
+                        <Label text="General" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Application Language:" styleClass="form-label"/>
+                            <ComboBox fx:id="languageComboBox" styleClass="form-input" prefWidth="180.0"/>
+                        </HBox>
+                        <CheckBox fx:id="autoSaveCheckBox" text="Auto Save Settings on Change"/>
+                        <CheckBox fx:id="rememberWindowSizeCheckBox" text="Remember Window Size and Position"/>
+                        <CheckBox fx:id="startMaximizedCheckBox" text="Start Application Maximized"/>
+                    </VBox>
+
+                    <!-- Section 2: Scanning -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Scanning" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Default Scan Folder:" styleClass="form-label"/>
+                            <TextField fx:id="defaultScanFolderTextField" styleClass="form-input" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="browseScanFolderBtn" text="Browse..." onAction="#onBrowseScanFolder" styleClass="btn-secondary"/>
+                        </HBox>
+                        <CheckBox fx:id="recursiveScanCheckBox" text="Enable Recursive Scan by Default"/>
+                        <CheckBox fx:id="includeHiddenFilesCheckBox" text="Include Hidden Files in Scans"/>
+                        <CheckBox fx:id="followSymlinksCheckBox" text="Follow Symbolic Links"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Max Scan Threads:" styleClass="form-label"/>
+                            <Spinner fx:id="maxScanThreadsSpinner" prefWidth="100.0"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Section 3: Organization -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Organization" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Default Destination Folder:" styleClass="form-label"/>
+                            <TextField fx:id="defaultDestFolderTextField" styleClass="form-input" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="browseDestFolderBtn" text="Browse..." onAction="#onBrowseDestFolder" styleClass="btn-secondary"/>
+                        </HBox>
+                        <HBox styleClass="form-row">
+                            <Label text="Conflict Resolution:" styleClass="form-label"/>
+                            <ComboBox fx:id="conflictResolutionComboBox" styleClass="form-input" prefWidth="200.0"/>
+                        </HBox>
+                        <CheckBox fx:id="createCategoryFoldersCheckBox" text="Create Category Subfolders Automatically"/>
+                        <CheckBox fx:id="verifyMovedFilesCheckBox" text="Verify Files After Move Operation"/>
+                    </VBox>
+
+                    <!-- Section 4: Duplicate Detection -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Duplicate Detection" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Hash Algorithm:" styleClass="form-label"/>
+                            <ComboBox fx:id="hashAlgorithmComboBox" styleClass="form-input" prefWidth="180.0"/>
+                        </HBox>
+                        <HBox styleClass="form-row">
+                            <Label text="Min File Size (KB):" styleClass="form-label"/>
+                            <Spinner fx:id="minFileSizeSpinner" prefWidth="120.0"/>
+                        </HBox>
+                        <CheckBox fx:id="parallelProcessingCheckBox" text="Enable Multi-threaded Parallel Checksum Processing"/>
+                    </VBox>
+
+                    <!-- Section 5: Folder Watcher -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Folder Watcher" styleClass="section-title"/>
+                        <CheckBox fx:id="enableWatcherCheckBox" text="Enable Background Folder Watching"/>
+                        <CheckBox fx:id="recursiveWatchCheckBox" text="Recursive Directory Monitoring"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Debounce Time (ms):" styleClass="form-label"/>
+                            <Spinner fx:id="debounceTimeSpinner" prefWidth="140.0"/>
+                        </HBox>
+                        <CheckBox fx:id="autoOrganizeNewFilesCheckBox" text="Auto-Organize Newly Detected Files"/>
+                    </VBox>
+
+                    <!-- Section 6: Appearance -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Appearance" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="Application Theme:" styleClass="form-label"/>
+                            <ComboBox fx:id="themeComboBox" styleClass="form-input" prefWidth="180.0"/>
+                        </HBox>
+                        <HBox styleClass="form-row">
+                            <Label text="Accent Color:" styleClass="form-label"/>
+                            <ColorPicker fx:id="accentColorPicker"/>
+                        </HBox>
+                        <VBox spacing="4.0">
+                            <Label text="Font Size:" styleClass="form-label"/>
+                            <Slider fx:id="fontSizeSlider" showTickLabels="true" showTickMarks="true" majorTickUnit="2.0" minorTickCount="1"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Section 7: Advanced -->
+                    <VBox styleClass="settings-card">
+                        <Label text="Advanced" styleClass="section-title"/>
+                        <HBox styleClass="form-row">
+                            <Label text="App Data Folder:" styleClass="form-label"/>
+                            <Label fx:id="appDataFolderLabel" text="-" styleClass="info-val" HBox.hgrow="ALWAYS"/>
+                            <Button fx:id="openAppDataFolderBtn" text="Open Folder" onAction="#onOpenAppDataFolder" styleClass="btn-secondary"/>
+                        </HBox>
+                        <HBox spacing="12.0">
+                            <Button fx:id="exportSettingsBtn" text="Export Settings" onAction="#onExportSettings" styleClass="btn-secondary"/>
+                            <Button fx:id="importSettingsBtn" text="Import Settings" onAction="#onImportSettings" styleClass="btn-secondary"/>
+                            <Button fx:id="resetDefaultsBtn" text="Reset to Defaults" onAction="#onResetDefaults" styleClass="btn-secondary"/>
+                        </HBox>
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- Right Region: Information Sidebar Panel -->
+    <right>
+        <VBox styleClass="info-panel">
+            <Label text="Information &amp; Status" styleClass="panel-title" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+            <VBox styleClass="info-card">
+                <Label text="CONFIGURATION STATUS" styleClass="info-key"/>
+                <Label fx:id="validationStatusLabel" text="Valid" styleClass="info-val" style="-fx-text-fill: #10b981;"/>
+            </VBox>
+
+            <VBox styleClass="info-card">
+                <Label text="STORAGE LOCATION" styleClass="info-key"/>
+                <Label fx:id="storageLocationLabel" text="-" styleClass="info-val" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="info-card">
+                <Label text="APPLICATION VERSION" styleClass="info-key"/>
+                <Label fx:id="appVersionLabel" text="v1.0.0" styleClass="info-val"/>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Action Bar -->
+    <bottom>
+        <HBox styleClass="action-bar" alignment="CENTER_LEFT">
+            <Button fx:id="applyBtn" text="Apply" onAction="#onApply" styleClass="btn-primary"/>
+            <Button fx:id="saveBtn" text="Save" onAction="#onSave" styleClass="btn-primary"/>
+            <Button fx:id="cancelBtn" text="Cancel" onAction="#onCancel" styleClass="btn-secondary"/>
+            <Button fx:id="restoreDefaultsBtn" text="Restore Defaults" onAction="#onRestoreDefaults" styleClass="btn-secondary"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusLabel" text="Settings Ready" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

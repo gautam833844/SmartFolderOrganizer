@@ -1,0 +1,92 @@
+/* Modern Dark Theme Design System for Smart Folder Organizer */
+
+.root {
+    /* Palette Tokens */
+    -fx-bg-base: #1e1e2e;
+    -fx-bg-surface: #252538;
+    -fx-bg-elevated: #2d2d44;
+    -fx-accent-primary: #6c5ce7;
+    -fx-accent-hover: #7d6dfa;
+    -fx-text-primary: #f8f8f2;
+    -fx-text-secondary: #a0a0b8;
+    -fx-border-subtle: #383852;
+    
+    -fx-background-color: -fx-bg-base;
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* MenuBar Styling */
+.menu-bar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent -fx-border-subtle transparent;
+    -fx-border-width: 1px;
+}
+
+.menu-bar .label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.menu-item .label {
+    -fx-text-fill: -fx-text-primary;
+}
+
+.context-menu {
+    -fx-background-color: -fx-bg-elevated;
+    -fx-border-color: -fx-border-subtle;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+/* ToolBar Styling */
+.tool-bar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-spacing: 8px;
+    -fx-padding: 8px 12px;
+    -fx-border-color: transparent transparent -fx-border-subtle transparent;
+    -fx-border-width: 1px;
+}
+
+/* Rounded Control Buttons */
+.button {
+    -fx-background-color: -fx-bg-elevated;
+    -fx-text-fill: -fx-text-primary;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-border-color: -fx-border-subtle;
+    -fx-padding: 6px 14px;
+    -fx-cursor: hand;
+    -fx-font-weight: 500;
+}
+
+.button:hover {
+    -fx-background-color: -fx-accent-primary;
+    -fx-border-color: -fx-accent-hover;
+}
+
+.button:pressed {
+    -fx-background-color: -fx-accent-hover;
+}
+
+/* Typography & Titles */
+.welcome-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.welcome-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+/* StatusBar Styling */
+.status-bar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: -fx-border-subtle transparent transparent transparent;
+    -fx-border-width: 1px;
+}
+
+.status-bar .label {
+    -fx-text-fill: -fx-text-secondary;
+}

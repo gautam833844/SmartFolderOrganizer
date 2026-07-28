@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.DuplicateManagerController"
+            stylesheets="@../css/DuplicateManager.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header and Stats Bar -->
+    <top>
+        <VBox styleClass="header-pane">
+            <VBox spacing="4.0">
+                <Label text="Duplicate File Manager" styleClass="header-title"/>
+                <Label text="Review and manage duplicate files before taking action." styleClass="header-subtitle"/>
+            </VBox>
+
+            <HBox styleClass="stats-bar">
+                <!-- Card 1: Duplicate Groups -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="DUPLICATE GROUPS" styleClass="stat-card-small-title"/>
+                    <Label fx:id="duplicateGroupsValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 2: Duplicate Files -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="DUPLICATE FILES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="duplicateFilesValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 3: Potential Space Savings -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="POTENTIAL SPACE SAVINGS" styleClass="stat-card-small-title"/>
+                    <Label fx:id="spaceSavingsValueLabel" text="0 B" styleClass="stat-card-small-value" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <!-- Card 4: Selected Files -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="SELECTED FILES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="selectedFilesValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Left Region: Duplicate Groups Panel -->
+    <left>
+        <VBox styleClass="groups-panel">
+            <Label text="Duplicate Groups" styleClass="panel-title"/>
+            <TreeView fx:id="duplicateGroupsTreeView" styleClass="groups-tree-view" VBox.vgrow="ALWAYS"/>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Duplicate Files TableView -->
+    <center>
+        <VBox styleClass="center-container">
+            <TableView fx:id="duplicateTableView" styleClass="duplicate-table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="selectColumn" text="Select" prefWidth="55.0" resizable="false"/>
+                    <TableColumn fx:id="fileNameColumn" text="File Name" prefWidth="180.0"/>
+                    <TableColumn fx:id="folderColumn" text="Folder" prefWidth="220.0"/>
+                    <TableColumn fx:id="categoryColumn" text="Category" prefWidth="110.0"/>
+                    <TableColumn fx:id="sizeColumn" text="Size" prefWidth="100.0"/>
+                    <TableColumn fx:id="modifiedColumn" text="Last Modified" prefWidth="150.0"/>
+                    <TableColumn fx:id="checksumColumn" text="Checksum" prefWidth="120.0"/>
+                    <TableColumn fx:id="recommendationColumn" text="Recommendation" prefWidth="140.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- Right Region: Duplicate Details Panel -->
+    <right>
+        <VBox styleClass="details-panel">
+            <Label text="Duplicate Details" styleClass="panel-title"/>
+
+            <VBox styleClass="preview-box">
+                <Label text="📄" styleClass="preview-icon-label"/>
+            </VBox>
+
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox spacing="10.0">
+                        <VBox styleClass="detail-row">
+                            <Label text="SELECTED FILE" styleClass="detail-key"/>
+                            <Label fx:id="detailSelectedFileLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="ORIGINAL FILE" styleClass="detail-key"/>
+                            <Label fx:id="detailOriginalFileLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="DUPLICATE FILE" styleClass="detail-key"/>
+                            <Label fx:id="detailDuplicateFileLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="CHECKSUM (SHA-256)" styleClass="detail-key"/>
+                            <Label fx:id="detailChecksumLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="CREATION DATE" styleClass="detail-key"/>
+                            <Label fx:id="detailCreatedLabel" text="-" styleClass="detail-val"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="LAST MODIFIED" styleClass="detail-key"/>
+                            <Label fx:id="detailModifiedLabel" text="-" styleClass="detail-val"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="RECOMMENDED ACTION" styleClass="detail-key"/>
+                            <Label fx:id="detailRecommendationLabel" text="-" styleClass="detail-val" style="-fx-text-fill: #ef4444; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Action Toolbar & Status Bar -->
+    <bottom>
+        <HBox styleClass="action-toolbar" alignment="CENTER_LEFT">
+            <Button fx:id="selectAllBtn" text="Select All" onAction="#onSelectAll" styleClass="action-btn-secondary"/>
+            <Button fx:id="keepOldestBtn" text="Keep Oldest" onAction="#onKeepOldest" styleClass="action-btn-secondary"/>
+            <Button fx:id="keepNewestBtn" text="Keep Newest" onAction="#onKeepNewest" styleClass="action-btn-secondary"/>
+            <Button fx:id="keepLargestBtn" text="Keep Largest" onAction="#onKeepLargest" styleClass="action-btn-secondary"/>
+            <Button fx:id="clearSelectionBtn" text="Clear Selection" onAction="#onClearSelection" styleClass="action-btn-secondary"/>
+            <Separator orientation="VERTICAL"/>
+            <Button fx:id="deleteSelectedBtn" text="Delete Selected" onAction="#onDeleteSelected" styleClass="action-btn-danger"/>
+            <Button fx:id="moveSelectedBtn" text="Move Selected" onAction="#onMoveSelected" styleClass="action-btn-secondary"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="exportListBtn" text="Export List" onAction="#onExportList" styleClass="action-btn-secondary"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

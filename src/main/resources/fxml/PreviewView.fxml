@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.PreviewController"
+            stylesheets="@../css/Preview.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header and Stats Cards Bar -->
+    <top>
+        <VBox styleClass="preview-header-pane">
+            <VBox spacing="4.0">
+                <Label text="Organization Preview" styleClass="header-title"/>
+                <Label text="Review all proposed changes before organizing your files." styleClass="header-subtitle"/>
+            </VBox>
+
+            <HBox styleClass="stats-bar">
+                <!-- Stat Card 1: Total Files -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="TOTAL FILES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="totalFilesValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Stat Card 2: Files to Move -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="FILES TO MOVE" styleClass="stat-card-small-title"/>
+                    <Label fx:id="filesToMoveValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Stat Card 3: Conflicts -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="CONFLICTS" styleClass="stat-card-small-title"/>
+                    <Label fx:id="conflictsValueLabel" text="0" styleClass="stat-card-small-value" style="-fx-text-fill: #ef4444;"/>
+                </VBox>
+
+                <!-- Stat Card 4: Space Saved -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="ESTIMATED SPACE SAVED" styleClass="stat-card-small-title"/>
+                    <Label fx:id="spaceSavedValueLabel" text="0 B" styleClass="stat-card-small-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Center Region: SplitPane TreeViews (Top) & Preview TableView (Bottom) -->
+    <center>
+        <VBox styleClass="center-container">
+            <!-- Top Half: Dual TreeViews Comparison -->
+            <SplitPane styleClass="tree-split-pane" dividerPositions="0.5" VBox.vgrow="ALWAYS" prefHeight="260.0">
+                <!-- Left: Source Folder Structure -->
+                <VBox styleClass="tree-panel">
+                    <Label text="Source Folder Structure" styleClass="tree-panel-title"/>
+                    <TreeView fx:id="sourceTreeView" styleClass="structure-tree-view" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+                <!-- Right: Destination Category Structure -->
+                <VBox styleClass="tree-panel">
+                    <Label text="Organized Destination Structure" styleClass="tree-panel-title"/>
+                    <TreeView fx:id="destinationTreeView" styleClass="structure-tree-view" VBox.vgrow="ALWAYS"/>
+                </VBox>
+            </SplitPane>
+
+            <!-- Bottom Half: Proposed Movement TableView -->
+            <VBox VBox.vgrow="ALWAYS" prefHeight="280.0">
+                <TableView fx:id="previewTableView" styleClass="preview-table-view" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="fileNameColumn" text="File Name" prefWidth="200.0"/>
+                        <TableColumn fx:id="originalPathColumn" text="Current Folder" prefWidth="260.0"/>
+                        <TableColumn fx:id="destinationPathColumn" text="Destination Folder" prefWidth="260.0"/>
+                        <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120.0"/>
+                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="90.0"/>
+                        <TableColumn fx:id="conflictColumn" text="Conflict" prefWidth="110.0"/>
+                        <TableColumn fx:id="statusColumn" text="Status" prefWidth="110.0"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Right Region: Conflict Resolution Sidebar Panel -->
+    <right>
+        <VBox styleClass="conflict-panel">
+            <Label text="Conflict Resolution" styleClass="conflict-header"/>
+            
+            <VBox styleClass="conflict-info-card">
+                <VBox spacing="2.0">
+                    <Label text="CONFLICT TYPE" styleClass="conflict-key"/>
+                    <Label fx:id="conflictTypeLabel" text="-" styleClass="conflict-val" wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="EXISTING FILE" styleClass="conflict-key"/>
+                    <Label fx:id="existingFileLabel" text="-" styleClass="conflict-val" wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="PROPOSED FILE" styleClass="conflict-key"/>
+                    <Label fx:id="proposedFileLabel" text="-" styleClass="conflict-val" wrapText="true"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="SUGGESTED ACTION" styleClass="conflict-key"/>
+                    <Label fx:id="suggestedActionLabel" text="-" styleClass="conflict-val" wrapText="true"/>
+                </VBox>
+            </VBox>
+
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                <Label text="RESOLUTION ACTIONS" styleClass="conflict-key"/>
+                <Button fx:id="autoRenameBtn" text="Auto Rename" onAction="#onAutoRename" styleClass="conflict-button-primary" maxWidth="Infinity"/>
+                <Button fx:id="skipFileBtn" text="Skip File" onAction="#onSkipFile" styleClass="conflict-button-secondary" maxWidth="Infinity"/>
+                <Button fx:id="overwriteBtn" text="Overwrite" onAction="#onOverwrite" styleClass="conflict-button-danger" maxWidth="Infinity"/>
+                <Button fx:id="keepBothBtn" text="Keep Both" onAction="#onKeepBoth" styleClass="conflict-button-secondary" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" text="Preview Complete" styleClass="status-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressBar fx:id="progressBar" progress="1.0" styleClass="status-progress-bar"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

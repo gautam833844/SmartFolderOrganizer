@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.MainViewController"
+            prefWidth="1200.0" prefHeight="700.0"
+            stylesheets="@../css/style.css">
+
+    <!-- Top Container: MenuBar + ToolBar -->
+    <top>
+        <VBox spacing="0">
+            <MenuBar>
+                <menus>
+                    <Menu text="File">
+                        <items>
+                            <MenuItem text="Select Folder..." />
+                            <SeparatorMenuItem />
+                            <MenuItem text="Exit" />
+                        </items>
+                    </Menu>
+                    <Menu text="Edit">
+                        <items>
+                            <MenuItem text="Undo Last Operation" />
+                            <MenuItem text="Settings" />
+                        </items>
+                    </Menu>
+                    <Menu text="View">
+                        <items>
+                            <MenuItem text="Toggle Dark Mode" />
+                        </items>
+                    </Menu>
+                    <Menu text="Help">
+                        <items>
+                            <MenuItem text="Documentation" />
+                            <MenuItem text="About Smart Folder Organizer" />
+                        </items>
+                    </Menu>
+                </menus>
+            </MenuBar>
+            <ToolBar>
+                <items>
+                    <Button text="Select Folder" />
+                    <Button text="Scan Folder" />
+                    <Button text="Organize Files" />
+                    <Button text="Undo Action" />
+                </items>
+            </ToolBar>
+        </VBox>
+    </top>
+
+    <!-- Center Placeholder -->
+    <center>
+        <VBox alignment="CENTER" spacing="15.0">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20" />
+            </padding>
+            <Label text="Smart Folder Organizer" styleClass="welcome-title" />
+            <Label text="Select a target directory to begin scanning and organizing your files." styleClass="welcome-subtitle" />
+        </VBox>
+    </center>
+
+    <!-- Bottom Container: StatusBar -->
+    <bottom>
+        <HBox spacing="10.0" alignment="CENTER_LEFT" styleClass="status-bar">
+            <padding>
+                <Insets top="5.0" right="15.0" bottom="5.0" left="15.0" />
+            </padding>
+            <Label text="Status:" style="-fx-font-weight: bold;" />
+            <Label fx:id="statusLabel" text="Ready" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

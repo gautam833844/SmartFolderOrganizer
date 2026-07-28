@@ -1,0 +1,23 @@
+# Target build artifacts
+target/
+*.class
+
+# IDE and Project Files
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/
+
+# Log files
+*.log
+logs/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# User persistence storage directory during development
+.smartfolderorganizer/

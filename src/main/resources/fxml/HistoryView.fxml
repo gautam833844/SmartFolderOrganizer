@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.HistoryController"
+            stylesheets="@../css/History.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header and Stats Bar -->
+    <top>
+        <VBox styleClass="header-pane">
+            <VBox spacing="4.0">
+                <Label text="Transaction History" styleClass="header-title"/>
+                <Label text="View previous organization sessions and restore changes." styleClass="header-subtitle"/>
+            </VBox>
+
+            <HBox styleClass="stats-bar">
+                <!-- Card 1: Total Transactions -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="TOTAL TRANSACTIONS" styleClass="stat-card-small-title"/>
+                    <Label fx:id="totalTransactionsValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 2: Files Organized -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="FILES ORGANIZED" styleClass="stat-card-small-title"/>
+                    <Label fx:id="filesOrganizedValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 3: Undo Available -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="UNDO AVAILABLE" styleClass="stat-card-small-title"/>
+                    <Label fx:id="undoAvailableValueLabel" text="0" styleClass="stat-card-small-value" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <!-- Card 4: Last Run -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="LAST RUN" styleClass="stat-card-small-title"/>
+                    <Label fx:id="lastRunValueLabel" text="-" styleClass="stat-card-small-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Left Region: Transaction List Sidebar Panel -->
+    <left>
+        <VBox styleClass="tx-list-panel">
+            <Label text="Transactions" styleClass="panel-title"/>
+            <TableView fx:id="transactionTableView" styleClass="tx-table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="txIdColumn" text="ID" prefWidth="65.0"/>
+                    <TableColumn fx:id="dateColumn" text="Date" prefWidth="110.0"/>
+                    <TableColumn fx:id="filesCountColumn" text="Files" prefWidth="45.0"/>
+                    <TableColumn fx:id="txStatusColumn" text="Status" prefWidth="70.0"/>
+                    <TableColumn fx:id="undoAvailableColumn" text="Undo" prefWidth="45.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Selected Transaction Details Header & File Table -->
+    <center>
+        <VBox styleClass="center-container">
+            <!-- Header Summary Details Card -->
+            <VBox styleClass="detail-header-card" spacing="10.0">
+                <HBox spacing="20.0" alignment="CENTER_LEFT">
+                    <VBox spacing="2.0">
+                        <Label text="TRANSACTION ID" styleClass="detail-key"/>
+                        <Label fx:id="detailTxIdLabel" text="-" styleClass="detail-val" style="-fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <VBox spacing="2.0">
+                        <Label text="DATE &amp; TIME" styleClass="detail-key"/>
+                        <Label fx:id="detailDateLabel" text="-" styleClass="detail-val"/>
+                    </VBox>
+
+                    <VBox spacing="2.0">
+                        <Label text="DURATION" styleClass="detail-key"/>
+                        <Label fx:id="detailDurationLabel" text="-" styleClass="detail-val"/>
+                    </VBox>
+
+                    <VBox spacing="2.0">
+                        <Label text="STATUS" styleClass="detail-key"/>
+                        <Label fx:id="detailStatusLabel" text="-" styleClass="detail-val" style="-fx-text-fill: #10b981; -fx-font-weight: bold;"/>
+                    </VBox>
+                </HBox>
+
+                <Separator/>
+
+                <HBox spacing="20.0">
+                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                        <Label text="SOURCE FOLDER" styleClass="detail-key"/>
+                        <Label fx:id="detailSourceLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                    </VBox>
+
+                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                        <Label text="DESTINATION FOLDER" styleClass="detail-key"/>
+                        <Label fx:id="detailDestinationLabel" text="-" styleClass="detail-val" wrapText="true"/>
+                    </VBox>
+                </HBox>
+
+                <HBox spacing="20.0">
+                    <Label text="Processed: " styleClass="detail-key"/>
+                    <Label fx:id="detailProcessedLabel" text="0" styleClass="detail-val"/>
+                    <Label text="Successful: " styleClass="detail-key"/>
+                    <Label fx:id="detailSuccessLabel" text="0" styleClass="detail-val" style="-fx-text-fill: #10b981;"/>
+                    <Label text="Failed: " styleClass="detail-key"/>
+                    <Label fx:id="detailFailedLabel" text="0" styleClass="detail-val" style="-fx-text-fill: #ef4444;"/>
+                </HBox>
+            </VBox>
+
+            <!-- File Movements TableView -->
+            <VBox VBox.vgrow="ALWAYS">
+                <TableView fx:id="transactionFilesTableView" styleClass="files-table-view" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="fileNameColumn" text="File Name" prefWidth="180.0"/>
+                        <TableColumn fx:id="originalPathColumn" text="Original Path" prefWidth="250.0"/>
+                        <TableColumn fx:id="destinationPathColumn" text="Destination Path" prefWidth="250.0"/>
+                        <TableColumn fx:id="actionColumn" text="Action" prefWidth="90.0"/>
+                        <TableColumn fx:id="resultColumn" text="Result" prefWidth="100.0"/>
+                    </columns>
+                    <columnResizePolicy>
+                        <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+
+    <!-- Right Region: Undo & Transaction Action Panel -->
+    <right>
+        <VBox styleClass="undo-panel">
+            <Label text="Undo &amp; Audit Panel" styleClass="panel-title"/>
+
+            <VBox styleClass="undo-card">
+                <VBox spacing="2.0">
+                    <Label text="SELECTED TRANSACTION" styleClass="detail-key"/>
+                    <Label fx:id="undoSelectedTxLabel" text="-" styleClass="detail-val" style="-fx-font-weight: bold;"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="UNDO STATUS" styleClass="detail-key"/>
+                    <Label fx:id="undoStatusLabel" text="-" styleClass="detail-val" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="FILES RESTORABLE" styleClass="detail-key"/>
+                    <Label fx:id="undoRestorableLabel" text="-" styleClass="detail-val"/>
+                </VBox>
+
+                <VBox spacing="2.0">
+                    <Label text="WARNINGS" styleClass="detail-key"/>
+                    <Label fx:id="undoWarningsLabel" text="-" styleClass="detail-val" wrapText="true" style="-fx-text-fill: #f59e0b;"/>
+                </VBox>
+            </VBox>
+
+            <VBox spacing="10.0" VBox.vgrow="ALWAYS">
+                <Label text="ACTIONS" styleClass="detail-key"/>
+                <Button fx:id="undoTxBtn" text="Undo Transaction" onAction="#onUndoTransaction" styleClass="btn-primary" maxWidth="Infinity"/>
+                <Button fx:id="exportTxBtn" text="Export Transaction" onAction="#onExportTransaction" styleClass="btn-secondary" maxWidth="Infinity"/>
+                <Button fx:id="deleteRecordBtn" text="Delete Record" onAction="#onDeleteRecord" styleClass="btn-danger" maxWidth="Infinity"/>
+                <Button fx:id="refreshBtn" text="Refresh" onAction="#onRefresh" styleClass="btn-secondary" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="selectedTxCountLabel" text="Selected Transactions: 0" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

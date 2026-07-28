@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.ScannerController"
+            stylesheets="@../css/Scanner.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Scanner Toolbar -->
+    <top>
+        <HBox styleClass="scanner-toolbar">
+            <Label text="Source Folder:" styleClass="status-label"/>
+            <TextField fx:id="sourceFolderTextField" promptText="Select a target directory..." styleClass="path-text-field" HBox.hgrow="ALWAYS"/>
+            <Button fx:id="browseBtn" text="Browse..." onAction="#onBrowse" styleClass="action-button"/>
+            <Separator orientation="VERTICAL"/>
+            <CheckBox fx:id="recursiveCheckBox" text="Recursive Scan" selected="true" styleClass="status-label"/>
+            <CheckBox fx:id="hiddenFilesCheckBox" text="Include Hidden Files" selected="false" styleClass="status-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Button fx:id="scanBtn" text="Scan Directory" onAction="#onScan" styleClass="action-button-primary"/>
+            <Button fx:id="clearBtn" text="Clear" onAction="#onClear" styleClass="action-button"/>
+        </HBox>
+    </top>
+
+    <!-- Left Region: Category Filter Sidebar -->
+    <left>
+        <VBox styleClass="category-filter-sidebar">
+            <Label text="CATEGORIES" styleClass="sidebar-header"/>
+            <ToggleButton fx:id="filterAllBtn" text="All (150)" styleClass="filter-toggle-button" maxWidth="Infinity">
+                <toggleGroup>
+                    <ToggleGroup fx:id="categoryToggleGroup"/>
+                </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="filterImagesBtn" text="Images (45)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterDocumentsBtn" text="Documents (30)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterVideosBtn" text="Videos (12)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterAudioBtn" text="Audio (20)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterArchivesBtn" text="Archives (10)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterCodeBtn" text="Code (18)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterExecutablesBtn" text="Executables (5)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+            <ToggleButton fx:id="filterOthersBtn" text="Others (10)" toggleGroup="$categoryToggleGroup" styleClass="filter-toggle-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Scanned Files TableView -->
+    <center>
+        <VBox styleClass="center-table-container">
+            <TableView fx:id="filesTableView" styleClass="files-table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="iconColumn" text="" prefWidth="35.0" resizable="false"/>
+                    <TableColumn fx:id="fileNameColumn" text="File Name" prefWidth="200.0"/>
+                    <TableColumn fx:id="extensionColumn" text="Extension" prefWidth="90.0"/>
+                    <TableColumn fx:id="categoryColumn" text="Category" prefWidth="120.0"/>
+                    <TableColumn fx:id="sizeColumn" text="Size" prefWidth="100.0"/>
+                    <TableColumn fx:id="modifiedColumn" text="Last Modified" prefWidth="160.0"/>
+                    <TableColumn fx:id="originalPathColumn" text="Current Location" prefWidth="240.0"/>
+                    <TableColumn fx:id="destinationPathColumn" text="Destination" prefWidth="240.0"/>
+                    <TableColumn fx:id="statusColumn" text="Status" prefWidth="90.0"/>
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="UNCONSTRAINED_RESIZE_POLICY"/>
+                </columnResizePolicy>
+            </TableView>
+        </VBox>
+    </center>
+
+    <!-- Right Region: File Details Sidebar Panel -->
+    <right>
+        <VBox styleClass="details-panel">
+            <Label text="File Details" styleClass="details-header"/>
+            
+            <VBox styleClass="preview-box">
+                <Label text="📄" styleClass="preview-icon-label"/>
+            </VBox>
+
+            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox spacing="10.0">
+                        <VBox styleClass="detail-row">
+                            <Label text="NAME" styleClass="detail-label-key"/>
+                            <Label fx:id="detailNameLabel" text="-" styleClass="detail-label-value" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="SIZE" styleClass="detail-label-key"/>
+                            <Label fx:id="detailSizeLabel" text="-" styleClass="detail-label-value"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="TYPE" styleClass="detail-label-key"/>
+                            <Label fx:id="detailTypeLabel" text="-" styleClass="detail-label-value"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="CATEGORY" styleClass="detail-label-key"/>
+                            <Label fx:id="detailCategoryLabel" text="-" styleClass="detail-label-value"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="CREATED" styleClass="detail-label-key"/>
+                            <Label fx:id="detailCreatedLabel" text="-" styleClass="detail-label-value"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="LAST MODIFIED" styleClass="detail-label-key"/>
+                            <Label fx:id="detailModifiedLabel" text="-" styleClass="detail-label-value"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="CURRENT LOCATION" styleClass="detail-label-key"/>
+                            <Label fx:id="detailSourceLabel" text="-" styleClass="detail-label-value" wrapText="true"/>
+                        </VBox>
+
+                        <VBox styleClass="detail-row">
+                            <Label text="PROPOSED DESTINATION" styleClass="detail-label-key"/>
+                            <Label fx:id="detailDestinationLabel" text="-" styleClass="detail-label-value" wrapText="true"/>
+                        </VBox>
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Status Bar -->
+    <bottom>
+        <HBox styleClass="status-bar" alignment="CENTER_LEFT">
+            <Label fx:id="filesLoadedLabel" text="Files Loaded: 0" styleClass="status-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="selectedCountLabel" text="Selected: 0" styleClass="status-label"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <ProgressBar fx:id="progressBar" progress="0.0" styleClass="status-progress-bar"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

@@ -1,0 +1,238 @@
+/* Modern Light Theme Design System for Smart Folder Organizer */
+
+.root {
+    /* Color Tokens */
+    -fx-bg-main: #f8fafc;
+    -fx-bg-surface: #ffffff;
+    -fx-bg-sidebar: #f1f5f9;
+    -fx-bg-card: #ffffff;
+    
+    -fx-text-primary: #0f172a;
+    -fx-text-secondary: #475569;
+    -fx-text-muted: #94a3b8;
+    
+    -fx-accent-primary: #3b82f6;
+    -fx-accent-hover: #2563eb;
+    -fx-accent-light: #eff6ff;
+    
+    -fx-border-color-subtle: #e2e8f0;
+    -fx-border-color-card: #cbd5e1;
+    
+    -fx-background-color: -fx-bg-main;
+    -fx-font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    -fx-font-size: 13px;
+}
+
+/* MenuBar Styling */
+.menu-bar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent -fx-border-color-subtle transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 2px 10px;
+}
+
+.menu-bar .label {
+    -fx-text-fill: -fx-text-primary;
+    -fx-font-size: 12px;
+}
+
+.menu:hover, .menu:showing {
+    -fx-background-color: -fx-accent-light;
+    -fx-background-radius: 4px;
+}
+
+/* Top Toolbar */
+.top-toolbar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent -fx-border-color-subtle transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 10px 16px;
+    -fx-spacing: 10px;
+}
+
+.action-button {
+    -fx-background-color: -fx-bg-surface;
+    -fx-text-fill: -fx-text-primary;
+    -fx-border-color: -fx-border-color-card;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.action-button:hover {
+    -fx-background-color: -fx-accent-light;
+    -fx-border-color: -fx-accent-primary;
+    -fx-text-fill: -fx-accent-primary;
+}
+
+.action-button-primary {
+    -fx-background-color: -fx-accent-primary;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: -fx-accent-primary;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 8px 16px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.action-button-primary:hover {
+    -fx-background-color: -fx-accent-hover;
+    -fx-border-color: -fx-accent-hover;
+}
+
+/* Left Navigation Sidebar */
+.navigation-sidebar {
+    -fx-background-color: -fx-bg-sidebar;
+    -fx-border-color: transparent -fx-border-color-subtle transparent transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 16px 12px;
+    -fx-spacing: 8px;
+    -fx-pref-width: 220px;
+    -fx-min-width: 200px;
+}
+
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.nav-button:hover {
+    -fx-background-color: -fx-bg-surface;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.nav-button-active {
+    -fx-background-color: -fx-accent-primary;
+    -fx-text-fill: #ffffff;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12px 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+}
+
+/* Center Dashboard Content */
+.center-container {
+    -fx-background-color: -fx-bg-main;
+    -fx-padding: 24px;
+    -fx-spacing: 24px;
+}
+
+.welcome-header-pane {
+    -fx-background-color: -fx-bg-surface;
+    -fx-background-radius: 12px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 12px;
+    -fx-padding: 24px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.04), 8, 0, 0, 2);
+}
+
+.header-title {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.header-subtitle {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+/* Statistic Cards */
+.stats-grid {
+    -fx-hgap: 18px;
+    -fx-vgap: 18px;
+}
+
+.stat-card {
+    -fx-background-color: -fx-bg-card;
+    -fx-background-radius: 12px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 12px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 10, 0, 0, 3);
+    -fx-pref-height: 110px;
+}
+
+.stat-card-title {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-secondary;
+}
+
+.stat-card-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-accent-primary;
+}
+
+/* Right Activity Panel */
+.right-panel {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: transparent transparent transparent -fx-border-color-subtle;
+    -fx-border-width: 1px;
+    -fx-padding: 20px 16px;
+    -fx-spacing: 12px;
+    -fx-pref-width: 300px;
+    -fx-min-width: 260px;
+}
+
+.panel-section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-primary;
+}
+
+.activity-list-view {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8px;
+    -fx-border-color: -fx-border-color-subtle;
+    -fx-border-radius: 8px;
+}
+
+.activity-list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 12px;
+    -fx-border-color: transparent transparent -fx-border-color-subtle transparent;
+    -fx-border-width: 1px;
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.activity-list-view .list-cell:hover {
+    -fx-background-color: -fx-accent-light;
+    -fx-text-fill: -fx-text-primary;
+}
+
+/* Bottom Status Bar */
+.status-bar {
+    -fx-background-color: -fx-bg-surface;
+    -fx-border-color: -fx-border-color-subtle transparent transparent transparent;
+    -fx-border-width: 1px;
+    -fx-padding: 8px 16px;
+    -fx-spacing: 16px;
+}
+
+.status-label {
+    -fx-text-fill: -fx-text-secondary;
+    -fx-font-size: 12px;
+}
+
+.status-progress-bar {
+    -fx-pref-width: 150px;
+    -fx-accent: -fx-accent-primary;
+}
+
+.version-label {
+    -fx-text-fill: -fx-text-muted;
+    -fx-font-size: 11px;
+}

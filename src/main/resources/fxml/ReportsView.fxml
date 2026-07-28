@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.smartfolderorganizer.controller.ReportsController"
+            stylesheets="@../css/Reports.css"
+            prefWidth="1400.0" prefHeight="850.0"
+            minWidth="1100.0" minHeight="700.0">
+
+    <!-- Top Region: Header and Stats Bar -->
+    <top>
+        <VBox styleClass="header-pane">
+            <VBox spacing="4.0">
+                <Label text="Reports &amp; Analytics" styleClass="header-title"/>
+                <Label text="View organization statistics, storage insights, and historical trends." styleClass="header-subtitle"/>
+            </VBox>
+
+            <HBox styleClass="stats-bar">
+                <!-- Card 1: Files Organized -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="FILES ORGANIZED" styleClass="stat-card-small-title"/>
+                    <Label fx:id="filesOrganizedValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 2: Storage Saved -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="STORAGE SAVED" styleClass="stat-card-small-title"/>
+                    <Label fx:id="storageSavedValueLabel" text="0 B" styleClass="stat-card-small-value" style="-fx-text-fill: #10b981;"/>
+                </VBox>
+
+                <!-- Card 3: Duplicate Files -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="DUPLICATE FILES" styleClass="stat-card-small-title"/>
+                    <Label fx:id="duplicateFilesValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+
+                <!-- Card 4: Organization Sessions -->
+                <VBox styleClass="stat-card-small" spacing="2.0">
+                    <Label text="ORGANIZATION SESSIONS" styleClass="stat-card-small-title"/>
+                    <Label fx:id="sessionsValueLabel" text="0" styleClass="stat-card-small-value"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Left Region: Reports Navigation Sidebar -->
+    <left>
+        <VBox styleClass="nav-sidebar">
+            <Button text="Overview" styleClass="nav-button-active" maxWidth="Infinity"/>
+            <Button text="Category Analysis" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Storage Analysis" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Duplicate Analysis" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Performance" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="History" styleClass="nav-button" maxWidth="Infinity"/>
+            <Button text="Exports" styleClass="nav-button" maxWidth="Infinity"/>
+        </VBox>
+    </left>
+
+    <!-- Center Region: Dashboard Scrollable Charts -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <content>
+                <VBox styleClass="center-container" spacing="20.0">
+                    <!-- Row 1: PieChart - Files by Category -->
+                    <VBox styleClass="chart-card">
+                        <Label text="Files by Category" styleClass="chart-title"/>
+                        <PieChart fx:id="categoryPieChart" prefHeight="300.0"/>
+                    </VBox>
+
+                    <!-- Row 2: BarChart - Storage Usage by Category -->
+                    <VBox styleClass="chart-card">
+                        <Label text="Storage Usage by Category" styleClass="chart-title"/>
+                        <BarChart fx:id="storageBarChart" prefHeight="320.0">
+                            <xAxis>
+                                <CategoryAxis fx:id="storageXAxis" label="Category"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="storageYAxis" label="Storage (MB)"/>
+                            </yAxis>
+                        </BarChart>
+                    </VBox>
+
+                    <!-- Row 3: LineChart - Organization Activity -->
+                    <VBox styleClass="chart-card">
+                        <Label text="Organization Activity (Last 7 Days)" styleClass="chart-title"/>
+                        <LineChart fx:id="activityLineChart" prefHeight="320.0">
+                            <xAxis>
+                                <CategoryAxis fx:id="activityXAxis" label="Day"/>
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="activityYAxis" label="Files Processed"/>
+                            </yAxis>
+                        </LineChart>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- Right Region: Summary Insights Panel -->
+    <right>
+        <VBox styleClass="summary-panel">
+            <Label text="Summary Insights" styleClass="panel-title"/>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="LARGEST FILE" styleClass="summary-item-key"/>
+                <Label fx:id="largestFileLabel" text="-" styleClass="summary-item-val" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="MOST COMMON CATEGORY" styleClass="summary-item-key"/>
+                <Label fx:id="mostCommonCategoryLabel" text="-" styleClass="summary-item-val"/>
+            </VBox>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="AVERAGE FILE SIZE" styleClass="summary-item-key"/>
+                <Label fx:id="avgFileSizeLabel" text="-" styleClass="summary-item-val"/>
+            </VBox>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="LARGEST ORGANIZATION" styleClass="summary-item-key"/>
+                <Label fx:id="largestOrgSessionLabel" text="-" styleClass="summary-item-val" wrapText="true"/>
+            </VBox>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="MOST RECENT SCAN" styleClass="summary-item-key"/>
+                <Label fx:id="mostRecentScanLabel" text="-" styleClass="summary-item-val"/>
+            </VBox>
+
+            <VBox styleClass="summary-item-card">
+                <Label text="FASTEST ORGANIZATION RUN" styleClass="summary-item-key"/>
+                <Label fx:id="fastestRunLabel" text="-" styleClass="summary-item-val"/>
+            </VBox>
+        </VBox>
+    </right>
+
+    <!-- Bottom Region: Export Toolbar & Status Bar -->
+    <bottom>
+        <HBox styleClass="export-toolbar" alignment="CENTER_LEFT">
+            <Button fx:id="exportPdfBtn" text="Export PDF" onAction="#onExportPdf" styleClass="btn-primary"/>
+            <Button fx:id="exportCsvBtn" text="Export CSV" onAction="#onExportCsv" styleClass="btn-secondary"/>
+            <Button fx:id="exportJsonBtn" text="Export JSON" onAction="#onExportJson" styleClass="btn-secondary"/>
+            <Button fx:id="printBtn" text="Print" onAction="#onPrint" styleClass="btn-secondary"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="refreshBtn" text="Refresh" onAction="#onRefresh" styleClass="btn-secondary"/>
+            <Separator orientation="VERTICAL"/>
+            <Label fx:id="statusLabel" text="Ready" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
