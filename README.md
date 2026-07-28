@@ -1,6 +1,6 @@
 # Smart Folder Organizer
 
-[![Build Status](https://github.com/your-username/SmartFolderOrganizer/actions/workflows/maven.yml/badge.svg)](https://github.com/your-username/SmartFolderOrganizer/actions/workflows/maven.yml)
+[![Build Status](https://github.com/gautam833844/SmartFolderOrganizer/actions/workflows/maven.yml/badge.svg)](https://github.com/gautam833844/SmartFolderOrganizer/actions/workflows/maven.yml)
 [![Java 21](https://img.shields.io/badge/Java-21-orange.svg)](https://www.oracle.com/java/)
 [![Maven 3.8+](https://img.shields.io/badge/Maven-3.8%2B-blue.svg)](https://maven.apache.org/)
 [![GitHub Release](https://img.shields.io/badge/Release-v1.0.0-blue.svg)](release/ReleaseNotes-v1.0.0.md)
@@ -95,7 +95,7 @@ SmartFolderOrganizer/
 
 Clone the repository:
 ```bash
-git clone https://github.com/your-username/SmartFolderOrganizer.git
+git clone https://github.com/gautam833844/SmartFolderOrganizer.git
 cd SmartFolderOrganizer
 ```
 
